@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dasar ramah lansia: teks besar & kontras tinggi (PRD §10). */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-hijau-50 text-gray-900 antialiased;
+}
+
+/* Fokus jelas untuk aksesibilitas keyboard */
+:focus-visible {
+  outline: 3px solid theme("colors.hijau.500");
+  outline-offset: 2px;
+}
+
+/* Aturan cetak untuk fitur "Unduh PDF" (window.print). */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .print-area {
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
