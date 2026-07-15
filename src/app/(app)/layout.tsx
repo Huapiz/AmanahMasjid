@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { requireSession } from "@/lib/session";
 import { logout } from "./actions";
+import Toast from "@/components/Toast";
 
 export default async function AppLayout({
   children,
@@ -11,6 +13,9 @@ export default async function AppLayout({
 
   return (
     <div className="min-h-screen">
+      <Suspense fallback={null}>
+        <Toast />
+      </Suspense>
       <header className="border-b border-hijau-100 bg-white">
         <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-3 px-4 py-3">
           <Link href="/beranda" className="text-2xl font-bold text-hijau-700">

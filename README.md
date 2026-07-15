@@ -81,6 +81,38 @@ Prasyarat: Node.js 20+ dan akun [Neon](https://neon.tech) (gratis).
    Buka http://localhost:3000 → diarahkan ke halaman **Masuk**. Login dengan
    nomor HP + PIN yang tadi dibuat. Laporan publik ada di `http://localhost:3000/m/<slug>`.
 
+## Peran (Roles)
+
+Setiap akun takmir (`akun_takmir.peran`) punya salah satu dari 4 peran berikut
+(PRD §4, §7):
+
+| Peran | Untuk siapa | Tanggung jawab |
+|---|---|---|
+| `admin` | Pengurus utama/penanggung jawab masjid | Onboarding masjid & akun takmir lain, akses penuh ke semua modul |
+| `bendahara` | Bendahara/takmir harian | Catat transaksi kas & infaq masuk/keluar, lihat saldo berjalan, bagikan tautan/QR laporan publik ke jemaah |
+| `panitia_zakat` | Relawan musiman Ramadhan | Kelola musim zakat, catat data muzakki (pembayar) & mustahik (penerima) beserta alokasi 8 asnaf |
+| `panitia_kurban` | Relawan musiman Idul Adha | Kelola musim kurban, catat peserta (termasuk sapi patungan) & checklist distribusi daging per kelompok |
+
+Akun pertama yang dibuat lewat `npm run seed:admin` biasanya berperan `admin`,
+tapi script yang sama dipakai untuk mendaftarkan akun takmir dengan peran
+lainnya juga — saat prompt `Peran [admin]:` muncul, ketik salah satu:
+`bendahara`, `panitia_zakat`, atau `panitia_kurban` (bukan hanya menekan Enter).
+Setiap peran login dengan cara yang sama (nomor HP + PIN 6 digit); belum ada
+pembatasan akses per peran di level UI (direncanakan untuk iterasi
+berikutnya seiring modul Zakat & Kurban dibangun).
+
+### Akun test tim (masjid: Al-Hakim / `masjidnyahakim`)
+
+⚠️ **Untuk testing internal saja** — PIN sama di semua akun, jangan dipakai
+di produksi nyata. Ganti PIN masing-masing lewat database/script kalau akun
+ini mulai dipakai serius (lihat catatan Reset PIN di bawah).
+
+| Nama | Nomor HP | PIN | Peran |
+|---|---|---|---|
+| Bendahara Test | `081200000001` | `123456` | `bendahara` |
+| Panitia Zakat Test | `081200000002` | `123456` | `panitia_zakat` |
+| Panitia Kurban Test | `081200000003` | `123456` | `panitia_kurban` |
+
 ## Perintah yang tersedia
 
 | Perintah | Fungsi |

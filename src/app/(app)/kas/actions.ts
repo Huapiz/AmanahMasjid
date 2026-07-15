@@ -75,7 +75,7 @@ export async function tambahTransaksi(
 
   revalidatePath("/kas");
   revalidatePath("/beranda");
-  redirect("/kas");
+  redirect("/kas?status=tersimpan");
 }
 
 export async function ubahTransaksi(
@@ -110,7 +110,7 @@ export async function ubahTransaksi(
 
   revalidatePath("/kas");
   revalidatePath("/beranda");
-  redirect("/kas");
+  redirect("/kas?status=tersimpan");
 }
 
 export async function hapusTransaksi(formData: FormData) {
@@ -129,5 +129,5 @@ export async function hapusTransaksi(formData: FormData) {
 
   revalidatePath("/kas");
   revalidatePath("/beranda");
-  redirect("/kas");
+  redirect("/kas?status=dihapus");
 }

@@ -3,10 +3,16 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { masjid } from "@/db/schema";
 import { requireSession } from "@/lib/session";
-import { saldoTotal, ringkasanBulan } from "@/lib/queries";
+import {
+  saldoTotal,
+  ringkasanBulan,
+  ringkasanTahun,
+  saldoPerBulan,
+} from "@/lib/queries";
 import { formatRupiah } from "@/lib/rupiah";
 import { NAMA_BULAN } from "@/lib/labels";
 import { Card, TautanTombol } from "@/components/ui";
+import SparklineSaldo from "@/components/SparklineSaldo";
 
 export const metadata = { title: "Beranda — AmanahMasjid" };
 
@@ -23,9 +29,11 @@ export default async function Beranda() {
   const tahun = sekarang.getFullYear();
   const bulan = sekarang.getMonth() + 1;
 
-  const [saldo, bulanIni] = await Promise.all([
+  const [saldo, bulanIni, tahunIni, trenSaldo] = await Promise.all([
     saldoTotal(session.masjidId),
     ringkasanBulan(session.masjidId, tahun, bulan),
+    ringkasanTahun(session.masjidId, tahun),
+    saldoPerBulan(session.masjidId),
   ]);
 
   return (
@@ -39,6 +47,14 @@ export default async function Beranda() {
       <Card className="bg-hijau-600 text-white">
         <p className="text-lg opacity-90">Saldo Kas Saat Ini</p>
         <p className="mt-1 text-3xl font-bold">{formatRupiah(saldo)}</p>
+      </Card>
+
+      {/* Tren saldo 6 bulan terakhir */}
+      <Card>
+        <p className="mb-2 text-base font-semibold text-gray-700">
+          Tren Saldo 6 Bulan Terakhir
+        </p>
+        <SparklineSaldo data={trenSaldo} />
       </Card>
 
       {/* Ringkasan bulan berjalan */}
@@ -57,6 +73,27 @@ export default async function Beranda() {
             <p className="text-base text-gray-600">Uang Keluar</p>
             <p className="mt-1 text-xl font-bold text-red-700">
               {formatRupiah(bulanIni.keluar)}
+            </p>
+          </Card>
+        </div>
+      </div>
+
+      {/* Ringkasan tahun berjalan */}
+      <div>
+        <h2 className="mb-2 text-xl font-bold text-gray-900">
+          Total Tahun {tahun}
+        </h2>
+        <div className="grid grid-cols-2 gap-3">
+          <Card>
+            <p className="text-base text-gray-600">Uang Masuk</p>
+            <p className="mt-1 text-xl font-bold text-hijau-700">
+              {formatRupiah(tahunIni.masuk)}
+            </p>
+          </Card>
+          <Card>
+            <p className="text-base text-gray-600">Uang Keluar</p>
+            <p className="mt-1 text-xl font-bold text-red-700">
+              {formatRupiah(tahunIni.keluar)}
             </p>
           </Card>
         </div>

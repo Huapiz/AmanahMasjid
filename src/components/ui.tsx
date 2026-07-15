@@ -88,6 +88,18 @@ export function Textarea({
   );
 }
 
+export function Badge({ className = "", ...props }: ComponentProps<"span">) {
+  return (
+    <span
+      className={twMerge(
+        "inline-flex items-center rounded-full px-3 py-1 text-base font-semibold",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
 export function PesanError({ children }: { children: React.ReactNode }) {
   if (!children) return null;
   return (

@@ -23,7 +23,7 @@ export const labelTipe: Record<string, string> = {
 };
 
 // Format tanggal ISO (YYYY-MM-DD) ke tampilan Indonesia, mis. "15 Jul 2026".
-const BULAN_SINGKAT = [
+export const BULAN_SINGKAT = [
   "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
   "Jul", "Agu", "Sep", "Okt", "Nov", "Des",
 ];

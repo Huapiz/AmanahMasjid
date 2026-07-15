@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { and, desc, eq, gte, lt, sql } from "drizzle-orm";
+import { and, desc, eq, gte, ilike, lt, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { transaksiKas } from "@/db/schema";
 import { requireSession } from "@/lib/session";
@@ -10,7 +10,8 @@ import {
   formatTanggal,
   NAMA_BULAN,
 } from "@/lib/labels";
-import { Card, TautanTombol } from "@/components/ui";
+import { Card, TautanTombol, Badge } from "@/components/ui";
+import { kategoriWarnaKelas } from "@/lib/kategoriWarna";
 
 export const metadata = { title: "Kas & Infaq — AmanahMasjid" };
 
@@ -33,7 +34,7 @@ function opsiBulan(): { nilai: string; label: string }[] {
 export default async function DaftarKas({
   searchParams,
 }: {
-  searchParams: Promise<{ bulan?: string; kategori?: string }>;
+  searchParams: Promise<{ bulan?: string; kategori?: string; cari?: string }>;
 }) {
   const session = await requireSession();
   const sp = await searchParams;
@@ -56,6 +57,12 @@ export default async function DaftarKas({
   if (sp.kategori && kategoriValid) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     kondisi.push(eq(transaksiKas.kategori, sp.kategori as any));
+  }
+
+  // Pencarian bebas di kolom keterangan (case-insensitive, partial match)
+  const cari = sp.cari?.trim();
+  if (cari) {
+    kondisi.push(ilike(transaksiKas.keterangan, `%${cari}%`));
   }
 
   const daftar = await db
@@ -85,55 +92,73 @@ export default async function DaftarKas({
 
       {/* Filter (form GET, tanpa JavaScript) */}
       <Card>
-        <form className="grid gap-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
+        <form className="grid gap-3">
           <div>
             <label
-              htmlFor="bulan"
+              htmlFor="cari"
               className="mb-1 block text-base font-semibold text-gray-700"
             >
-              Bulan
+              Cari Keterangan
             </label>
-            <select
-              id="bulan"
-              name="bulan"
-              defaultValue={sp.bulan ?? ""}
+            <input
+              id="cari"
+              name="cari"
+              type="text"
+              defaultValue={sp.cari ?? ""}
+              placeholder="Contoh: infaq kotak amal"
               className="w-full min-h-[3rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
-            >
-              <option value="">Semua Bulan</option>
-              {opsiBulan().map((o) => (
-                <option key={o.nilai} value={o.nilai}>
-                  {o.label}
-                </option>
-              ))}
-            </select>
+            />
           </div>
-          <div>
-            <label
-              htmlFor="kategori"
-              className="mb-1 block text-base font-semibold text-gray-700"
+          <div className="grid gap-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
+            <div>
+              <label
+                htmlFor="bulan"
+                className="mb-1 block text-base font-semibold text-gray-700"
+              >
+                Bulan
+              </label>
+              <select
+                id="bulan"
+                name="bulan"
+                defaultValue={sp.bulan ?? ""}
+                className="w-full min-h-[3rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
+              >
+                <option value="">Semua Bulan</option>
+                {opsiBulan().map((o) => (
+                  <option key={o.nilai} value={o.nilai}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label
+                htmlFor="kategori"
+                className="mb-1 block text-base font-semibold text-gray-700"
+              >
+                Kategori
+              </label>
+              <select
+                id="kategori"
+                name="kategori"
+                defaultValue={sp.kategori ?? ""}
+                className="w-full min-h-[3rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
+              >
+                <option value="">Semua Kategori</option>
+                {kategoriKasOpsi.map((o) => (
+                  <option key={o.nilai} value={o.nilai}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button
+              type="submit"
+              className="min-h-[3rem] rounded-xl bg-hijau-600 px-6 text-lg font-semibold text-white hover:bg-hijau-700"
             >
-              Kategori
-            </label>
-            <select
-              id="kategori"
-              name="kategori"
-              defaultValue={sp.kategori ?? ""}
-              className="w-full min-h-[3rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
-            >
-              <option value="">Semua Kategori</option>
-              {kategoriKasOpsi.map((o) => (
-                <option key={o.nilai} value={o.nilai}>
-                  {o.label}
-                </option>
-              ))}
-            </select>
+              Tampilkan
+            </button>
           </div>
-          <button
-            type="submit"
-            className="min-h-[3rem] rounded-xl bg-hijau-600 px-6 text-lg font-semibold text-white hover:bg-hijau-700"
-          >
-            Tampilkan
-          </button>
         </form>
       </Card>
 
@@ -174,10 +199,10 @@ export default async function DaftarKas({
                 <Card className="transition hover:border-hijau-300">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-lg font-semibold text-gray-900">
+                      <Badge className={kategoriWarnaKelas[t.kategori]}>
                         {labelKategori[t.kategori]}
-                      </p>
-                      <p className="text-base text-gray-600">
+                      </Badge>
+                      <p className="mt-1 text-base text-gray-600">
                         {formatTanggal(t.tanggal)}
                         {t.keterangan ? ` — ${t.keterangan}` : ""}
                       </p>
