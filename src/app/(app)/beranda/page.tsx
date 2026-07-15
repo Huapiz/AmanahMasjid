@@ -69,7 +69,7 @@ export default async function Beranda() {
         </TautanTombol>
         <TautanTombol
           href="/kas"
-          className="w-full bg-white !text-hijau-700 border-2 border-hijau-600 hover:bg-hijau-50"
+          className="w-full bg-white text-hijau-700 border-2 border-hijau-600 hover:bg-hijau-50"
         >
           Lihat Riwayat Kas
         </TautanTombol>

@@ -6,8 +6,10 @@
  *
  * Membutuhkan DATABASE_URL yang valid di file .env.
  */
-import { config } from "dotenv";
-config({ path: ".env" });
+// WAJIB berupa side-effect import di baris paling atas: import lain di file ini
+// ikut di-hoist saat dijalankan sebagai ESM, sehingga `config()` biasa baru
+// jalan SETELAH ../src/db membaca DATABASE_URL.
+import "dotenv/config";
 
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
