@@ -13,7 +13,7 @@ import {
 import { Card, TautanTombol, Badge } from "@/components/ui";
 import { kategoriWarnaKelas } from "@/lib/kategoriWarna";
 
-export const metadata = { title: "Kas & Infaq — AmanahMasjid" };
+export const metadata = { title: "Kas & Infaq - AmanahMasjid" };
 
 // Buat daftar 12 bulan terakhir untuk pilihan filter.
 function opsiBulan(): { nilai: string; label: string }[] {
@@ -204,7 +204,7 @@ export default async function DaftarKas({
                       </Badge>
                       <p className="mt-1 text-base text-gray-600">
                         {formatTanggal(t.tanggal)}
-                        {t.keterangan ? ` — ${t.keterangan}` : ""}
+                        {t.keterangan ? ` - ${t.keterangan}` : ""}
                       </p>
                     </div>
                     <p

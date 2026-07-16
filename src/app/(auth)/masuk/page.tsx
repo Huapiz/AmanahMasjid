@@ -5,7 +5,7 @@ import { Card } from "@/components/ui";
 import MasukForm from "./MasukForm";
 
 export const metadata = {
-  title: "Masuk — AmanahMasjid",
+  title: "Masuk - AmanahMasjid",
 };
 
 export default async function HalamanMasuk() {
@@ -16,10 +16,14 @@ export default async function HalamanMasuk() {
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4 py-10">
       <div className="mb-8 text-center">
-        <h1 className="flex items-center justify-center gap-2 text-3xl font-bold text-hijau-700">
-          <Image src="/logo.png" alt="" width={40} height={40} className="h-10 w-10" />
-          AmanahMasjid
-        </h1>
+        <Image
+          src="/logo.png"
+          alt=""
+          width={100}
+          height={100}
+          className="mx-auto h-[100px] w-[100px]"
+        />
+        <h1 className="mt-2 text-3xl font-bold text-hijau-700">AmanahMasjid</h1>
         <p className="mt-2 text-lg text-gray-600">
           Masuk untuk mencatat kas masjid Anda.
         </p>

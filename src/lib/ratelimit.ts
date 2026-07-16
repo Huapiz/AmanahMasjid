@@ -1,5 +1,5 @@
 // Rate limit sederhana untuk percobaan login, mencegah brute force PIN 6 digit
-// (PRD §10). Disimpan in-memory per instance — cukup untuk MVP. Untuk skala
+// (PRD §10). Disimpan in-memory per instance - cukup untuk MVP. Untuk skala
 // produksi, ganti dengan penyimpanan bersama (mis. Upstash Redis / tabel Neon).
 
 type Entry = { count: number; resetAt: number };

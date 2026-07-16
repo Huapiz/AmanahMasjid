@@ -4,7 +4,7 @@ import { Card } from "@/components/ui";
 import { tambahTransaksi } from "../actions";
 import TransaksiForm from "../TransaksiForm";
 
-export const metadata = { title: "Catat Transaksi — AmanahMasjid" };
+export const metadata = { title: "Catat Transaksi - AmanahMasjid" };
 
 export default async function TambahTransaksi() {
   await requireSession();

@@ -102,7 +102,7 @@ async function main() {
 
     console.log("\n✅ Berhasil dibuat!");
     console.log(`   Masjid : ${namaMasjid}`);
-    console.log(`   Takmir : ${namaTakmir} (${nomorHp}) — ${peranInput}`);
+    console.log(`   Takmir : ${namaTakmir} (${nomorHp}) - ${peranInput}`);
     console.log(`   Laporan publik: /m/${slug}\n`);
   } finally {
     rl.close();

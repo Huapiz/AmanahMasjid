@@ -1,4 +1,4 @@
-// Warna badge per kategori transaksi — solid & kontras tinggi (bukan pastel),
+// Warna badge per kategori transaksi - solid & kontras tinggi (bukan pastel),
 // sengaja tidak memakai hijau/merah karena warna itu sudah dipakai untuk kode
 // tipe masuk/keluar (lihat kas/page.tsx & beranda/page.tsx).
 export const kategoriWarnaKelas: Record<string, string> = {

@@ -14,7 +14,7 @@ import { NAMA_BULAN } from "@/lib/labels";
 import { Card, TautanTombol } from "@/components/ui";
 import SparklineSaldo from "@/components/SparklineSaldo";
 
-export const metadata = { title: "Beranda — AmanahMasjid" };
+export const metadata = { title: "Beranda - AmanahMasjid" };
 
 export default async function Beranda() {
   const session = await requireSession();

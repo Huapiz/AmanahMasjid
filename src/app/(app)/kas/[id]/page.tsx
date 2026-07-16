@@ -8,7 +8,7 @@ import { Card } from "@/components/ui";
 import { ubahTransaksi, hapusTransaksi } from "../actions";
 import TransaksiForm from "../TransaksiForm";
 
-export const metadata = { title: "Ubah Transaksi — AmanahMasjid" };
+export const metadata = { title: "Ubah Transaksi - AmanahMasjid" };
 
 export default async function UbahHalaman({
   params,
