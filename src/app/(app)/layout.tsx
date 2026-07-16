@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Suspense } from "react";
 import { requireSession } from "@/lib/session";
 import { logout } from "./actions";
@@ -18,7 +19,11 @@ export default async function AppLayout({
       </Suspense>
       <header className="border-b border-hijau-100 bg-white">
         <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-3 px-4 py-3">
-          <Link href="/beranda" className="text-2xl font-bold text-hijau-700">
+          <Link
+            href="/beranda"
+            className="flex items-center gap-2 text-2xl font-bold text-hijau-700"
+          >
+            <Image src="/logo.png" alt="" width={32} height={32} className="h-8 w-8" />
             AmanahMasjid
           </Link>
           <div className="flex items-center gap-3">
