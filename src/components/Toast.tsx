@@ -6,6 +6,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 const PESAN_STATUS: Record<string, string> = {
   tersimpan: "Transaksi tersimpan",
   dihapus: "Transaksi dihapus",
+  disetujui: "Transaksi disetujui",
+  ditolak: "Transaksi ditolak",
 };
 
 export default function Toast() {

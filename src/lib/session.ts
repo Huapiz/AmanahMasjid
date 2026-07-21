@@ -45,3 +45,13 @@ export async function requireSession(): Promise<Required<SessionData>> {
   }
   return session as Required<SessionData>;
 }
+
+// Untuk halaman/aksi khusus admin: selain login, peran juga harus "admin".
+// Non-admin diarahkan halus ke beranda (bukan 404).
+export async function requireAdmin(): Promise<Required<SessionData>> {
+  const session = await requireSession();
+  if (session.peran !== "admin") {
+    redirect("/beranda");
+  }
+  return session;
+}

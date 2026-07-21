@@ -47,6 +47,7 @@ export default async function UbahHalaman({
             kategori: t.kategori,
             nominal: t.nominal,
             keterangan: t.keterangan ?? "",
+            buktiFoto: t.buktiFoto ?? undefined,
           }}
         />
       </Card>

@@ -26,3 +26,6 @@ yarn-error.log*
 
 # drizzle
 /drizzle
+
+#prompt folder
+/prompt

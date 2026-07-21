@@ -1,49 +1,40 @@
-import { notFound } from "next/navigation";
 import { headers } from "next/headers";
-import { eq } from "drizzle-orm";
 import QRCode from "qrcode";
-import { db } from "@/db";
-import { masjid } from "@/db/schema";
-import { saldoTotal, ringkasanBulan } from "@/lib/queries";
+import { ambilMasjidTunggal, saldoPerKelompok, ringkasanBulan } from "@/lib/queries";
 import { formatRupiah } from "@/lib/rupiah";
 import { NAMA_BULAN } from "@/lib/labels";
 import TombolCetak from "./TombolCetak";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const [m] = await db
-    .select({ nama: masjid.nama })
-    .from(masjid)
-    .where(eq(masjid.slug, slug))
-    .limit(1);
+export async function generateMetadata() {
+  const m = await ambilMasjidTunggal();
   return { title: m ? `Laporan Kas ${m.nama}` : "Laporan Masjid" };
 }
 
-export default async function LaporanPublik({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+export default async function LaporanPublik() {
+  const m = await ambilMasjidTunggal();
 
-  const [m] = await db
-    .select({ id: masjid.id, nama: masjid.nama, alamat: masjid.alamat })
-    .from(masjid)
-    .where(eq(masjid.slug, slug))
-    .limit(1);
-
-  if (!m) notFound();
+  if (!m) {
+    return (
+      <main className="mx-auto flex min-h-screen max-w-2xl items-center justify-center px-4 text-center">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">
+            Masjid belum terdaftar
+          </h1>
+          <p className="mt-2 text-base text-gray-600">
+            Jalankan <code className="rounded bg-gray-100 px-2 py-1">npm run seed:admin</code>{" "}
+            untuk mendaftarkan masjid dan akun admin pertama.
+          </p>
+        </div>
+      </main>
+    );
+  }
 
   const sekarang = new Date();
   const tahun = sekarang.getFullYear();
   const bulan = sekarang.getMonth() + 1;
 
-  const [saldo, bulanIni] = await Promise.all([
-    saldoTotal(m.id),
+  const [perKelompok, bulanIni] = await Promise.all([
+    saldoPerKelompok(m.id),
     ringkasanBulan(m.id, tahun, bulan),
   ]);
 
@@ -51,7 +42,7 @@ export default async function LaporanPublik({
   const h = await headers();
   const host = h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000";
   const proto = h.get("x-forwarded-proto") ?? "http";
-  const urlPublik = `${proto}://${host}/m/${slug}`;
+  const urlPublik = `${proto}://${host}/laporan`;
   const qrDataUrl = await QRCode.toDataURL(urlPublik, {
     width: 256,
     margin: 1,
@@ -75,11 +66,24 @@ export default async function LaporanPublik({
           <p className="mt-2 text-sm text-gray-500">Per {tglCetak}</p>
         </header>
 
-        {/* Saldo terkini */}
-        <section className="mt-6 rounded-xl bg-hijau-600 p-5 text-center text-white">
-          <p className="text-lg opacity-90">Saldo Kas Saat Ini</p>
-          <p className="mt-1 text-3xl font-bold">{formatRupiah(saldo)}</p>
+        {/* Saldo terkini, dipecah per kelompok dana */}
+        <section className="mt-6 grid grid-cols-2 gap-3">
+          <div className="rounded-xl bg-hijau-600 p-5 text-center text-white">
+            <p className="text-base opacity-90">Saldo Dana Umum</p>
+            <p className="mt-1 text-2xl font-bold">
+              {formatRupiah(perKelompok.umum.saldo)}
+            </p>
+          </div>
+          <div className="rounded-xl bg-teal-700 p-5 text-center text-white">
+            <p className="text-base opacity-90">Saldo Dana Terikat</p>
+            <p className="mt-1 text-2xl font-bold">
+              {formatRupiah(perKelompok.terikat.saldo)}
+            </p>
+          </div>
         </section>
+        <p className="mt-2 text-center text-sm text-gray-500">
+          Dana terikat tidak untuk operasional umum.
+        </p>
 
         {/* Ringkasan bulan berjalan */}
         <section className="mt-6">
@@ -117,7 +121,7 @@ export default async function LaporanPublik({
           />
           <a
             href={qrDataUrl}
-            download={`qr-${slug}.png`}
+            download="qr-laporan.png"
             className="no-print mt-3 text-lg font-semibold text-hijau-700 underline"
           >
             Unduh Gambar QR

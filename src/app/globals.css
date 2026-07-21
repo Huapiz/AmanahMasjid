@@ -17,6 +17,49 @@ body {
   outline-offset: 2px;
 }
 
+/* Running text pengumuman di halaman depan publik masjid. */
+@keyframes marquee-jalan {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee-jalan {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee-jalan 22s linear infinite;
+}
+
+/* Sapuan cahaya halus untuk segmen sholat berikutnya di papan jadwal. */
+@keyframes sholat-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(140, 106, 36, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(140, 106, 36, 0);
+  }
+}
+
+.sholat-aktif {
+  animation: sholat-pulse 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-jalan {
+    animation: none;
+    display: block;
+    white-space: normal;
+    transform: none;
+  }
+  .sholat-aktif {
+    animation: none;
+  }
+}
+
 /* Aturan cetak untuk fitur "Unduh PDF" (window.print). */
 @media print {
   .no-print {
