@@ -11,7 +11,7 @@ export function Card({
 }: ComponentProps<"div">) {
   return (
     <div
-      className={twMerge("rounded-2xl border border-hijau-100 bg-white p-5 shadow-sm", className)}
+      className={twMerge("rounded-xl border border-neutral-200 bg-white p-5", className)}
       {...props}
     />
   );
@@ -59,7 +59,7 @@ export function Label({
 }: ComponentProps<"label">) {
   return (
     <label
-      className={twMerge("mb-1 block text-lg font-semibold text-gray-800", className)}
+      className={twMerge("mb-1 block text-lg font-semibold text-neutral-800", className)}
       {...props}
     />
   );

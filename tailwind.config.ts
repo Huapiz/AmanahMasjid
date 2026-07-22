@@ -21,14 +21,9 @@ const config: Config = {
           800: "#135032",
           900: "#10422b",
         },
-        // Identitas halaman depan publik (bukan krem-terracotta / dark-neon)
-        ivory: "#F0EFE4", // latar utama, ivory hangat bernuansa hijau-abu
-        brass: "#8C6A24", // aksen kuningan redup, dipakai terbatas
-        charcoal: "#1B2420", // teks & panel gelap, charcoal hijau-tua
       },
       fontFamily: {
-        serif: ["var(--font-serif)", ...defaultTheme.fontFamily.serif],
-        mono: ["var(--font-mono)", ...defaultTheme.fontFamily.mono],
+        sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
       },
       fontSize: {
         // Naikkan skala dasar agar teks lebih besar & mudah dibaca lansia

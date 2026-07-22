@@ -1,18 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Source_Serif_4, IBM_Plex_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const sourceSerif = Source_Serif_4({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-serif",
+  variable: "--font-sans",
   display: "swap",
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-mono",
-  display: "swap",
+  // Berat statis (bukan variable font) — variable Inter di beberapa build
+  // Chromium menyebabkan angka besar (mis. statistik "text-6xl tabular-nums")
+  // dirender ganda/bertumpuk di layar tertentu.
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -33,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className={`${sourceSerif.variable} ${plexMono.variable}`}>
-      <body>{children}</body>
+    <html lang="id" className={inter.variable}>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }

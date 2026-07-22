@@ -27,7 +27,7 @@ export default async function PengaturanHalaman() {
           Pengaturan Profil Masjid
         </h1>
         <p className="mt-1 text-base text-gray-600">
-          Data ini tampil di halaman depan publik (<span className="font-mono">/</span>).
+          Data ini tampil di halaman depan publik (<span>/</span>).
         </p>
         <Link
           href="/masjid/pengurus"

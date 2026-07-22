@@ -26,21 +26,21 @@ const DAFTAR_FAQ = [
 
 export default function FaqAccordion() {
   return (
-    <div className="divide-y divide-charcoal/10">
+    <div className="divide-y divide-neutral-200">
       {DAFTAR_FAQ.map((item) => (
         <details key={item.tanya} className="group py-4">
-          <summary className="cursor-pointer list-none text-lg font-semibold text-charcoal marker:hidden">
+          <summary className="cursor-pointer list-none text-lg font-semibold text-neutral-900 marker:hidden">
             <span className="flex items-center justify-between gap-3">
               {item.tanya}
               <span
                 aria-hidden
-                className="shrink-0 text-brass transition-transform group-open:rotate-45"
+                className="shrink-0 text-hijau-600 transition-transform group-open:rotate-45"
               >
                 +
               </span>
             </span>
           </summary>
-          <p className="mt-2 text-base leading-relaxed text-charcoal/80">
+          <p className="mt-2 text-base leading-relaxed text-neutral-700">
             {item.jawab}
           </p>
         </details>

@@ -56,7 +56,7 @@ export default async function LaporanPublik() {
 
   return (
     <main className="mx-auto max-w-2xl px-4 py-8">
-      <div className="print-area rounded-2xl border border-hijau-100 bg-white p-6 shadow-sm">
+      <div className="print-area rounded-xl border border-neutral-200 bg-white p-6">
         <header className="border-b border-gray-200 pb-4 text-center">
           <p className="text-lg text-hijau-700">Laporan Kas Masjid</p>
           <h1 className="text-3xl font-bold text-gray-900">{m.nama}</h1>
@@ -74,7 +74,7 @@ export default async function LaporanPublik() {
               {formatRupiah(perKelompok.umum.saldo)}
             </p>
           </div>
-          <div className="rounded-xl bg-teal-700 p-5 text-center text-white">
+          <div className="rounded-xl bg-neutral-900 p-5 text-center text-white">
             <p className="text-base opacity-90">Saldo Dana Terikat</p>
             <p className="mt-1 text-2xl font-bold">
               {formatRupiah(perKelompok.terikat.saldo)}

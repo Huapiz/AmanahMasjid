@@ -24,7 +24,7 @@ export default function DaftarInfoForm() {
         inputMode="tel"
         placeholder="Contoh: 0812xxxxxxxx"
         required
-        className="w-full min-h-[3.25rem] rounded-xl border-2 border-charcoal/20 bg-white px-4 text-lg text-charcoal focus:border-brass focus:outline-none"
+        className="w-full min-h-[3.25rem] rounded-xl border-2 border-gray-300 bg-white px-4 text-lg text-gray-900 focus:border-hijau-500 focus:outline-none"
       />
       <button
         type="submit"

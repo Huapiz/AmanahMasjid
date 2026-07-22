@@ -172,7 +172,7 @@ export default async function DaftarKas({
               type="text"
               defaultValue={sp.cari ?? ""}
               placeholder="Contoh: infaq kotak amal"
-              className="w-full min-h-[3rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
+              className="w-full min-h-[3.25rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
             />
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -188,7 +188,7 @@ export default async function DaftarKas({
                 name="dari"
                 type="date"
                 defaultValue={sp.dari ?? ""}
-                className="w-full min-h-[3rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
+                className="w-full min-h-[3.25rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
               />
             </div>
             <div>
@@ -203,7 +203,7 @@ export default async function DaftarKas({
                 name="sampai"
                 type="date"
                 defaultValue={sp.sampai ?? ""}
-                className="w-full min-h-[3rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
+                className="w-full min-h-[3.25rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
               />
             </div>
           </div>
@@ -222,7 +222,7 @@ export default async function DaftarKas({
                 id="bulan"
                 name="bulan"
                 defaultValue={sp.bulan ?? ""}
-                className="w-full min-h-[3rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
+                className="w-full min-h-[3.25rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
               >
                 <option value="">Semua Bulan</option>
                 {opsiBulan().map((o) => (
@@ -243,7 +243,7 @@ export default async function DaftarKas({
                 id="kategori"
                 name="kategori"
                 defaultValue={sp.kategori ?? ""}
-                className="w-full min-h-[3rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
+                className="w-full min-h-[3.25rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
               >
                 <option value="">Semua Kategori</option>
                 {kategoriKasOpsi.map((o) => (
@@ -264,7 +264,7 @@ export default async function DaftarKas({
                 id="kelompok"
                 name="kelompok"
                 defaultValue={sp.kelompok ?? ""}
-                className="w-full min-h-[3rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
+                className="w-full min-h-[3.25rem] rounded-xl border-2 border-gray-300 px-3 text-lg"
               >
                 <option value="">Semua Kelompok</option>
                 <option value="umum">{labelKelompokDana.umum}</option>
@@ -273,7 +273,7 @@ export default async function DaftarKas({
             </div>
             <button
               type="submit"
-              className="min-h-[3rem] rounded-xl bg-hijau-600 px-6 text-lg font-semibold text-white hover:bg-hijau-700"
+              className="min-h-[3.25rem] rounded-xl bg-hijau-600 px-6 text-lg font-semibold text-white hover:bg-hijau-700"
             >
               Tampilkan
             </button>
